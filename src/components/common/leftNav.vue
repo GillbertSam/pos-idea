@@ -1,8 +1,8 @@
 <template>
     <div class="leftNav">
-        <ul>
-            <li><img src="../../assets/logo.png" alt=""></li>
-            <li><i class="icon iconfont">&#xe602;</i><p>收银</p></li>
+        <ul ref="tabUl">
+            <li class="noTab"><img src="../../assets/logo.png" alt=""></li>
+            <li class="on"><i class="icon iconfont">&#xe602;</i><p>收银</p></li>
             <li><i class="icon iconfont">&#xe603;</i><p>店铺</p></li>
             <li><i class="icon iconfont">&#xe600;</i><p>商品</p></li>
             <li><i class="icon iconfont">&#xe604;</i><p>会员</p></li>
@@ -17,6 +17,16 @@
       return {
 
       }
+    },
+    mounted(){
+        this.changeTab();
+    },
+    methods:{
+        changeTab:function() {
+            $('li').not('.noTab').on('click',function(){
+                $(this).addClass('on').siblings().removeClass('on');
+            })
+        }
     }
   }
 </script>
@@ -46,6 +56,13 @@
     .leftNav ul li:first-child{
         background-color: #fff;
         padding: 5px;
+    }
+    .leftNav ul li.on {
+        background-color: #fff;
+        color: #0085FF;
+    }
+    .leftNav ul li.on i {
+        color: #0085FF;
     }
     .iconfont {
         font-size: 24px;

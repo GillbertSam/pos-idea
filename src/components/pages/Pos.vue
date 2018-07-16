@@ -41,7 +41,7 @@
             <el-tab-pane label="汉堡" name="first">
               <div class="goods-content clearfix">
                 <ul>
-                  <li v-for="good in goodsType" :key="good.goodsId">
+                  <li v-for="good in goodsType[0]" :key="good.goodsId">
                     <img :src="good.goodsImg" alt="">
                     <p>{{good.goodsName}}</p>
                     <span>￥{{good.price}}</span>
@@ -49,9 +49,36 @@
                 </ul>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="小吃" name="second">小吃</el-tab-pane>
-            <el-tab-pane label="饮料" name="third">饮料</el-tab-pane>
-            <el-tab-pane label="套餐" name="forth">套餐</el-tab-pane>
+            <el-tab-pane label="小吃" name="second">
+              <div class="goods-content clearfix">
+                <ul>
+                  <li v-for="good in goodsType[1]" :key="good.goodsId">
+                    <img :src="good.goodsImg" alt="">
+                    <p>{{good.goodsName}}</p>
+                    <span>￥{{good.price}}</span>
+                  </li>
+                </ul>
+              </div></el-tab-pane>
+            <el-tab-pane label="饮料" name="third">
+              <div class="goods-content clearfix">
+                <ul>
+                  <li v-for="good in goodsType[2]" :key="good.goodsId">
+                    <img :src="good.goodsImg" alt="">
+                    <p>{{good.goodsName}}</p>
+                    <span>￥{{good.price}}</span>
+                  </li>
+                </ul>
+              </div></el-tab-pane>
+            <el-tab-pane label="套餐" name="forth">
+              <div class="goods-content clearfix">
+                <ul>
+                  <li v-for="good in goodsType[3]" :key="good.goodsId">
+                    <img :src="good.goodsImg" alt="">
+                    <p>{{good.goodsName}}</p>
+                    <span>￥{{good.price}}</span>
+                  </li>
+                </ul>
+              </div></el-tab-pane>
           </el-tabs>
         </div>
       </el-col>
@@ -63,6 +90,25 @@
 import axios from 'axios'
 export default {
   name: "pos",
+  created(){
+    axios.get('http://jspang.com/DemoApi/oftenGoods.php')
+    .then((response)=>{
+      console.log(response);
+      this.goodsData = response.data
+    },(error)=>{
+      console.log(error);
+    })
+
+    axios.get('http://jspang.com/DemoApi/typeGoods.php')
+    .then((response)=>{
+      this.goodsType[0] = response.data[0]
+      this.goodsType[1] = response.data[1]
+      this.goodsType[2] = response.data[2]
+      this.goodsType[3] = response.data[3]
+    },(error)=>{
+      console.log(error);
+    })
+  },
   data() {
     return {
       title: "It's a pos web",
@@ -111,102 +157,8 @@ export default {
           count:1
         }, 
       ],
-      goodsData:[
-        {
-              goodsId:1,
-              goodsName:'香辣鸡腿堡',
-              price:18
-          }, {
-              goodsId:2,
-              goodsName:'田园鸡腿堡',
-              price:15
-          }, {
-              goodsId:3,
-              goodsName:'和风汉堡',
-              price:15
-          }, {
-              goodsId:4,
-              goodsName:'快乐全家桶',
-              price:80
-          }, {
-              goodsId:5,
-              goodsName:'脆皮炸鸡腿',
-              price:10
-          }, {
-              goodsId:6,
-              goodsName:'魔法鸡块',
-              price:20
-          }, {
-              goodsId:7,
-              goodsName:'可乐大杯',
-              price:10
-          }, {
-              goodsId:8,
-              goodsName:'雪顶咖啡',
-              price:18
-          }, {
-              goodsId:9,
-              goodsName:'大块鸡米花',
-              price:15
-          }, {
-              goodsId:20,
-              goodsName:'香脆鸡柳',
-              price:17
-          }
-      ],
-      goodsType:[
-        {
-              goodsId:1,
-              goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos001.jpg",
-              goodsName:'香辣鸡腿堡',
-              price:18
-          }, {
-              goodsId:2,
-              goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos002.jpg",
-              goodsName:'田园鸡腿堡',
-              price:15
-          }, {
-              goodsId:3,
-              goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos004.jpg",
-              goodsName:'和风汉堡',
-              price:15
-          }, {
-              goodsId:4,
-               goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos003.jpg",
-              goodsName:'快乐全家桶',
-              price:80
-          }, {
-              goodsId:5,
-               goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos003.jpg",
-              goodsName:'脆皮炸鸡腿',
-              price:10
-          }, {
-              goodsId:6,
-               goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos004.jpg",
-              goodsName:'魔法鸡块',
-              price:20
-          }, {
-              goodsId:7,
-               goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos001.jpg",
-              goodsName:'可乐大杯',
-              price:10
-          }, {
-              goodsId:8,
-               goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos003.jpg",
-              goodsName:'雪顶咖啡',
-              price:18
-          }, {
-              goodsId:9,
-               goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos002.jpg",
-              goodsName:'大块鸡米花',
-              price:15
-          }, {
-              goodsId:20,
-               goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos002.jpg",
-              goodsName:'香脆鸡柳',
-              price:17
-          }
-      ]
+      goodsData:[],
+      goodsType:[],
     };
   }
 };
@@ -214,7 +166,7 @@ export default {
 
 <style scoped type='text/css'>
 .clearfix:after{
-  content: "020"; 
+  content: ""; 
   display: block; 
   height: 0; 
   clear: both; 
@@ -225,6 +177,29 @@ export default {
   /* 触发 hasLayout */ 
   zoom: 1; 
   }
+  .goods-content::-webkit-scrollbar 
+{ 
+    width: 10px; 
+    height: 6px; 
+    background-color: rgb(230, 235, 228); 
+} 
+   
+/*定义滚动条轨道 内阴影+圆角*/ 
+.goods-content::-webkit-scrollbar-track 
+{ 
+    -webkit-box-shadow: inset 0 0 6px #e41fb9b2; 
+    border-radius: 10px; 
+    background-color: #F5F5F5; 
+} 
+   
+/*定义滑块 内阴影+圆角*/ 
+.goods-content::-webkit-scrollbar-thumb 
+{ 
+    border-radius: 10px; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); 
+    background-color: rgb(229, 186, 220); 
+} 
+
 .pos,
 .content {
   height: 100%;
