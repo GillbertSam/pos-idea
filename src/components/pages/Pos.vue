@@ -23,7 +23,7 @@
               <div class="divBtn">
                 <el-button type="warning">挂单</el-button>
                 <el-button type="danger" @click="deleteAll">删除</el-button>
-                <el-button type="success">结账</el-button>
+                <el-button type="success" @click="checkout">结账</el-button>
               </div>
           </el-tab-pane>
           <el-tab-pane label="挂单" name="second">挂单</el-tab-pane>
@@ -186,6 +186,18 @@ export default {
       this.tableData = [];
       this.getAll();
     },
+    checkout(){
+      if(this.allNum) {
+        this.deleteAll();
+        // this.$message({
+        //   message:'succ',
+        //   type:'success'
+        // });
+        this.$message.success('succ');
+      }else {
+        this.$message.error('暂无账单可结');
+      }
+    },
   }
 };
 </script>
@@ -259,6 +271,7 @@ export default {
   padding: 10px;
   margin: 10px;
   transition: all 0.3s;
+  cursor: pointer;
 }
 .goods-list li:hover {
   background-color: rgb(240, 247, 246);
@@ -286,6 +299,7 @@ export default {
 .goods-content ul li:hover {
   background-color: hsl(0, 0%, 100%);
   box-shadow: 0px 0px 10px 1px #888888;
+  cursor: pointer;
   transform: translateY(-3px);
 }
 .goods-content ul li img {
