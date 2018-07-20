@@ -6,12 +6,17 @@ import Pos from '@/components/pages/Pos'
 Vue.use(Router)
 
 export default new Router({
+  base:'/dist',
   mode:'history',
   routes: [
     {
-      path: '/',
+      path: '/pos',
       name: 'Pos',
       component: Pos
+    },{
+      path: '/',
+      name: 'home',
+      redirect:'/pos'
     }
   ]
 })
